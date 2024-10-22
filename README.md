@@ -28,33 +28,18 @@ Sample Data
 Functions
 1. onehot_encode(df, columns)
 Performs One-Hot Encoding on the specified columns.
-
 Parameters:
 df: Input DataFrame
 columns: List of column names to one-hot encode
 Returns: DataFrame with one-hot encoded columns.
+
 2. ordinal_encode(df, column, order=None)
 Performs Ordinal Encoding on a single column.
-
 Parameters:
 df: Input DataFrame
 column: Column name to ordinal encode
 order: Dictionary specifying the order of values (e.g., {'Low': 0, 'Medium': 1, 'High': 2}). If None, the order is automatically derived from unique values.
 Returns: Series with ordinal encoded values.
-Usage
-Clone or download this repository.
-Install required dependencies (only pandas is used).
-Run the script in a Python environment to view the encoded DataFrame.
-
-
-Example Output
-
-   Priority    Size  Category_Electronics  Category_Clothing  Category_Groceries  Color_Red  Color_Blue  Color_Green  Color_Yellow  Priority_ordinal  Size_ordinal
-0      High   Large                    1                  0                   0          1           0            0             0                 2             2
-1    Medium   Small                    0                  1                   0          0           1            0             0                 1             0
-2       Low  Medium                    0                  0                   1          0           0            1             0                 0             1
-3    Medium   Large                    1                  0                   0          0           0            0             1                 1             2
-4      High  Medium                    0                  1                   0          1           0            0             0                 2             1
 
 
 Requirements
@@ -62,10 +47,4 @@ Python 3.x
 Pandas
 
 
-How to Run
-Ensure you have Python 3.x installed.
-Install Pandas if you don't have it:
-pip install pandas
 
-Run the script:
-python encoding_script.py
