@@ -1,34 +1,33 @@
-
 import pandas as pd
-from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
-
-data = {'Education': ['Bachelor', 'Master', 'PhD', 'Bachelor', 'Master'],
-        'Department': ['CSE', 'IT', 'SOFTWARE', 'MECHANICAL', 'IT']}
+data = {
+    'Category': ['Electronics', 'Clothing', 'Groceries', 'Electronics', 'Clothing'],
+    'Priority': ['High', 'Medium', 'Low', 'Medium', 'High'],
+    'Size': ['Large', 'Small', 'Medium', 'Large', 'Medium'],
+    'Color': ['Red', 'Blue', 'Green', 'Yellow', 'Red']
+}
 
 df = pd.DataFrame(data)
 
-print("Original DataFrame:")
-print(df)
+def onehot_encode(df, columns):
+    encoded_df = df.copy()  
+    for column in columns:
+        unique_vals = df[column].unique() 
+        for val in unique_vals:
+            encoded_df[f"{column}_{val}"] = (df[column] == val).astype(int)  
+    return encoded_df.drop(columns, axis=1) 
 
 
-education_categories = ['Bachelor', 'Master', 'PhD']
-
-ordinal_encoder = OrdinalEncoder(categories=[education_categories])
-
-df['Education_Ordinal'] = ordinal_encoder.fit_transform(df[['Education']])
-
-print("\nDataFrame with Ordinal Encoding:")
-print(df)
+def ordinal_encode(df, column, order=None):
+    if order is None:
+        order = {value: idx for idx, value in enumerate(df[column].unique())}
+    return df[column].map(order)  
 
 
-onehot_encoder = OneHotEncoder(sparse_output=False)
+df_one_hot_encoded = onehot_encode(df, columns=['Category', 'Color'])
 
-department_encoded = onehot_encoder.fit_transform(df[['Department']])
 
-department_encoded_df = pd.DataFrame(department_encoded, columns=onehot_encoder.get_feature_names_out(['Department']))
+df_one_hot_encoded['Priority_ordinal'] = ordinal_encode(df, 'Priority', order={'Low': 0, 'Medium': 1, 'High': 2})
+df_one_hot_encoded['Size_ordinal'] = ordinal_encode(df, 'Size', order={'Small': 0, 'Medium': 1, 'Large': 2})
 
-df = pd.concat([df, department_encoded_df], axis=1)
-
-print("\nDataFrame with One-Hot Encoding:")
-print(df)
+print(df_one_hot_encoded)
