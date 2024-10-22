@@ -41,7 +41,6 @@ column: Column name to ordinal encode
 order: Dictionary specifying the order of values (e.g., {'Low': 0, 'Medium': 1, 'High': 2}). If None, the order is automatically derived from unique values.
 Returns: Series with ordinal encoded values.
 
-
 Requirements
 Python 3.x
 Pandas
